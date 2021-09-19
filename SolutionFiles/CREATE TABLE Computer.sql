@@ -1,0 +1,10 @@
+CREATE TABLE Computer (
+	Id VARCHAR PRIMARY KEY,
+	Name VARCHAR (250) NOT NULL,
+	System VARCHAR (30) NOT NULL,
+	SystemVersion VARCHAR (30) NOT NULL,
+	ManagerUser VARCHAR (50),
+	DepartmentInstalled VARCHAR (50) NOT NULL,
+	CreationDate TIMESTAMP NOT NULL,
+	UpdateDate TIMESTAMP NULL
+);
