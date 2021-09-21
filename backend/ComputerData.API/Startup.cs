@@ -40,6 +40,7 @@ namespace ComputerData.API
                 opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
                 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,6 +55,8 @@ namespace ComputerData.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {
