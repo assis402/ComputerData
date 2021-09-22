@@ -1,10 +1,10 @@
 export type ComputerType = {
-    id: string;
-    name: string;
-    system: string;
-    systemVersion: string;
-    managerUser: string;
-    departmentInstalled: string;
-    creationDate: string;
-    updateDate: string;
+    Id: string;
+    Name: string;
+    System: string;
+    SystemVersion: string;
+    ManagerUser: string;
+    DepartmentInstalled: string;
+    CreationDate: string;
+    UpdateDate: string;
 }

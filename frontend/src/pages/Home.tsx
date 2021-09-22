@@ -1,55 +1,55 @@
 import axios from "axios";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Button, DeleteButton, UpdateButton } from "../components/Button";
 import { ListItem } from "../components/ListItem";
 import { ComputerType } from "../types/ComputerType";
-const baseURL = `https://localhost:5001/ComputerData`;
+const baseURL = `https://computerdata-api.herokuapp.com/ComputerData`;
 
 export function Home() {
-    const [computerName, setComputerName] = useState('');
-    const [computerList, setComputerList] = useState<ComputerType[]>([]);
-    const [result, setResult] = useState(null);
+    const history = useHistory();
+    const [computerSearch, setComputerSearch] = useState('')
+    const [computerList, setComputerList] = useState<ComputerType[] | null>(null)
+    
+    if (!computerList) Refresh()
 
-    function getComputers() {
-        if (computerName !== ''){
-            //getComputersByName()
-        }
-        
+    function GetUrl(){
+        return computerSearch !== '' ? `${baseURL}/GetByName/${computerSearch}` : baseURL
     }
 
-    function GetAll() { 
-        axios.get(baseURL, {
-        }).then((response) => {setResult(response.data)})
+    function DeleteComputer(id: string){
+        axios.delete(`${baseURL}?id=${id}`).then(_ => Refresh())
     }
 
-    GetAll();
+    function Refresh(){
+        axios.get(GetUrl()).then((response) => {setComputerList(response.data)})
+    }
 
     return (
         <>
             <h1>Computadores</h1>
             <main>
-                <form onSubmit={GetAll}>
-                    <input 
-                        type="text"
-                        placeholder="Pesquise pelo nome do computador"
-                        onChange={event => setComputerName(event.target.value)}
-                        value={computerName}
-                    />
-                    <Button type="submit">
-                        Pesquisar
-                    </Button>
-                </form>
+                <input 
+                    type="text"
+                    placeholder="Pesquise pelo nome do computador"
+                    onChange={event => setComputerSearch(event.target.value)}
+                    value={computerSearch}
+                />
+                <button className="" onClick={() => Refresh()}>Pesquisar</button>
+                <button className="" onClick={() => history.push('/computers/new')}>Adicionar</button>
                 <div className="ComputerList">
-                    <p>{result}</p>
-                    {computerList.map( computer => {
+                    {computerList ? computerList.map( computer => {
                         return  (
                             <div className="ListItem">
                                 <ListItem computer={computer}/>
-                                <UpdateButton/>
-                                <DeleteButton/>
+                                <button onClick={() => history.push({
+                                    pathname: `/computers/update`,
+                                    state: { computer: computer }
+                                })}>Editar</button>
+                                <button onClick={() => DeleteComputer(computer.Id)}>Delete</button>
                             </div>
                         )
-                    })}
+                    }) : ''}
                 </div>
             </main>
         </>

@@ -10,20 +10,20 @@ export function Button(props: ButtonProps) {
     )
 }
 
-export function UpdateButton(props: ButtonProps) {
+export function UpdateButton() {
     return (
-        <button className="button" {...props}/>
+        <button className="button">Editar</button>
     )
 }
 
 export function DeleteButton(props: ButtonProps) {
     return (
-        <button className="button" {...props}/>
+        <button className="button">Deletar</button>
     )
 }
 
 export function AddButton(props: ButtonProps) {
     return (
-        <button className="button" {...props}/>
+        <button className="button">Adicionar</button>
     )
 }

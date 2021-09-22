@@ -6,6 +6,6 @@ type ListItemProps = {
 
 export function ListItem({computer}: ListItemProps){
     return (
-        <h1>Teste</h1>
+        <h4>{computer.Name}</h4>
     )
 }
