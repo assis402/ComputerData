@@ -1,4 +1,5 @@
 import { useHistory } from "react-router";
+import { useApp } from "../hooks/useApp";
 import { ComputerType } from "../types/ComputerType";
 
 type ListItemProps = {
@@ -8,6 +9,13 @@ type ListItemProps = {
 
 export function ListItem({computer, deleteComputer}: ListItemProps){
 	const history = useHistory();
+	const { setSelectedComputer } = useApp();
+
+	function navigateToUpdate(){
+		setSelectedComputer(computer);
+		history.push('/update');
+	}
+
 	return (
 		<tr key={computer.Id}>
 			<td title={computer.Id}>
@@ -35,21 +43,9 @@ export function ListItem({computer, deleteComputer}: ListItemProps){
 				{computer.CreationDate}
 			</td>
 			<td>
-				<button className="btn btn-outline-primary" onClick={() => history.push({
-							pathname: `/computers/update`,
-							state: { computer: computer }
-					})}>Editar</button>
+				<button className="btn btn-outline-primary" onClick={navigateToUpdate}>Editar</button>
 				<button className="btn btn-outline-danger" onClick={() => deleteComputer(computer.Id)}>Delete</button>
 			</td>
 		</tr>
 	)
 }
-
-{/* <div className="card">
-			<div className="card-header">
-				{computer.Name}
-			</div>
-			<div className="card-body">
-		
-			</div>	
-		</div> */}
