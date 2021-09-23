@@ -15,6 +15,9 @@ namespace ComputerData.Application.Data.Entities
         [Column("name")]
         public string Name { get; private set; }
 
+        [Column("ip")]
+        public string Ip { get; private set; }
+
         [Column("system")]
         public string System { get; private set; }
 
@@ -34,6 +37,7 @@ namespace ComputerData.Application.Data.Entities
         public DateTime? UpdateDate { get; private set; }
 
         public Computer(string name,
+                        string ip,
                         string system,
                         string systemVersion,
                         string managerUser,
@@ -41,6 +45,7 @@ namespace ComputerData.Application.Data.Entities
         {
             Id = Guid.NewGuid().ToString();
             Name = name;
+            Ip = ip;
             System = system;
             SystemVersion = systemVersion;
             ManagerUser = managerUser;
@@ -49,15 +54,15 @@ namespace ComputerData.Application.Data.Entities
             UpdateDate = null;
         }
 
-        public Computer(string id, 
-                        string name, 
-                        string system, 
-                        string systemVersion, 
-                        string managerUser, 
-                        string departmentInstalled)       
+        public void Update(string name,
+                                   string ip,
+                                   string system, 
+                                   string systemVersion,
+                                   string managerUser,
+                                   string departmentInstalled)       
         {
-            Id = id;
             Name = name;
+            Ip = ip;
             System = system;
             SystemVersion = systemVersion;
             ManagerUser = managerUser;

@@ -12,19 +12,7 @@ namespace ComputerData.Application.Mapper
             return new Computer
             (
                 name: dto.Name,
-                system: dto.System,
-                systemVersion: dto.SystemVersion,
-                managerUser: dto.ManagerUser,
-                departmentInstalled: dto.DepartmentInstalled
-            );
-        }
-
-        public static Computer ToUpdatedEntity(this ComputerDto dto)
-        {
-            return new Computer
-            (
-                id: dto.Id,
-                name: dto.Name,
+                ip: dto.Ip,
                 system: dto.System,
                 systemVersion: dto.SystemVersion,
                 managerUser: dto.ManagerUser,
@@ -38,6 +26,7 @@ namespace ComputerData.Application.Mapper
             (
                 id: entity.Id,
                 name: entity.Name,
+                ip: entity.Ip,
                 system: entity.System,
                 systemVersion: entity.SystemVersion,
                 managerUser: entity.ManagerUser,
@@ -55,6 +44,7 @@ namespace ComputerData.Application.Mapper
                 dtoList.Add(new ComputerDto
                 (
                     id: entity.Id,
+                    ip: entity.Ip,
                     name: entity.Name,
                     system: entity.System,
                     systemVersion: entity.SystemVersion,

@@ -13,9 +13,9 @@ export function Home() {
     const [computerList, setComputerList] = useState<ComputerType[] | null>(null)
     
     if (!computerList) Refresh()
-
+    
     function GetUrl(){
-        return computerSearch !== '' ? `${baseURL}/GetByName/${computerSearch}` : baseURL
+        return computerSearch !== '' ? `${baseURL}/GetByNameOrIp/${computerSearch}` : baseURL
     }
 
     function DeleteComputer(id: string){
@@ -35,7 +35,7 @@ export function Home() {
             <div className="input-group w-50 mx-auto" >
               <input  
                 type="text"
-                placeholder="Pesquise pelo nome do computador"
+                placeholder="Pesquise pelo nome ou IP do computador"
                 className="form-control"
                 onChange={event => setComputerSearch(event.target.value)}
                 value={computerSearch}
@@ -48,14 +48,14 @@ export function Home() {
             <table className="table table-bordered table-striped align-middle mt-3">
               <thead>
                 <tr>
-                  <th>Id</th>
-                  <th>Name</th>
+                  <th>Nome</th>
+                  <th>Ip</th>
                   <th>Admin</th>
                   <th>Departmento</th>
                   <th>Sistema(OS)</th>
-                  <th>Atualizado</th>
                   <th>Versão atual</th>
                   <th>Criado em</th>
+                  <th>Atualizado em</th>
                   <th></th>
                 </tr>
               </thead>

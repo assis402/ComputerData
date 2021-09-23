@@ -5,7 +5,8 @@ namespace ComputerData.Application.Dto
     public class ComputerDto
     {
         public ComputerDto(string id, 
-                           string name, 
+                           string name,
+                           string ip, 
                            string system, 
                            string systemVersion, 
                            string managerUser, 
@@ -15,6 +16,7 @@ namespace ComputerData.Application.Dto
         {
             Id = id;
             Name = name;
+            Ip = ip;
             System = system;
             SystemVersion = systemVersion;
             ManagerUser = managerUser;
@@ -25,6 +27,7 @@ namespace ComputerData.Application.Dto
 
         public string Id { get; set; }
         public string Name { get; set; }
+        public string Ip { get; set; }
         public string System { get;  set; }
         public string SystemVersion { get; set; }
         public string ManagerUser { get; set; }

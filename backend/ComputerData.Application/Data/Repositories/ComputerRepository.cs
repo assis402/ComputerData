@@ -31,10 +31,17 @@ namespace ComputerData.Application.Data.Repositories
                                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<ICollection<Computer>> GetByIp(string ip)
+        {
+            return await _dbSet.AsNoTracking()
+                               .Where(x => x.Ip.Contains(ip))
+                               .ToListAsync();
+        }
+
         public async Task<ICollection<Computer>> GetByName(string name)
         {
             return await _dbSet.AsNoTracking()
-                               .Where(x => x.Name.Contains(name))
+                               .Where(x => x.Name.ToLower().Contains(name))
                                .ToListAsync();
         }
 

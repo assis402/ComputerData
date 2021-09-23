@@ -14,7 +14,7 @@ namespace ComputerData.Application.Services.Interfaces
 
         Task<ComputerDto> GetById(string id);
 
-        Task<ICollection<ComputerDto>> GetByName(string name);
+        Task<ICollection<ComputerDto>> GetByNameOrIp(string name);
 
         Task DeleteById(string id);
     }

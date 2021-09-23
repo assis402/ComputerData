@@ -53,12 +53,12 @@ namespace ComputerData.API.Controllers
             }
         }
 
-        [HttpGet("GetByName/{name}")]
-        public async Task<ActionResult> GetByName(string name)
+        [HttpGet("GetByNameOrIp/{search}")]
+        public async Task<ActionResult> GetByNameOrIp(string search)
         {
             try
             {
-                var computerList = await _computerService.GetByName(name);
+                var computerList = await _computerService.GetByNameOrIp(search);
 
                 if (computerList.Count != 0)
                     return Ok(computerList);
