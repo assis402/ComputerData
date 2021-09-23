@@ -1,18 +1,15 @@
 type FormItemProps = {
-    value: string | undefined
-    setValue: (value: string) => void
-    label: string
+	label: string;
+	value: string | undefined;
+	placeholder?: string;
+	setValue: (value: string) => void;
 }
 
-export function FormItem(props: FormItemProps) {
-    return (
-        <label className="">
-            {props.label}: 
-            <input 
-                type="text" 
-                onChange={event => props.setValue(event.target.value)}
-                value={props.value ?? ''}
-            />
-        </label>
-    )
+export function FormItem({label, value, placeholder, setValue}: FormItemProps) {
+	return (
+		<div className="mb-3">
+			<label htmlFor="" className="form-label">{label}</label>
+			<input value={value} onChange={(e)=>setValue(e.target.value)} placeholder={placeholder} type="text" className="form-control form-control-lg" />
+		</div>
+	)
 }
