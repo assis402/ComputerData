@@ -74,7 +74,7 @@ namespace ComputerData.Tests
         }
 
         [Fact]
-        public async void Should_GetAll_Computers_By_Name_Successfully()
+        public async void Should_GetAll_Computers_By_Name_Or_Ip_Successfully()
         {
             //Arrange
             _mockComputerRepository.Setup(x => x.GetByName(It.IsAny<string>()))
@@ -82,7 +82,7 @@ namespace ComputerData.Tests
                                    .Verifiable();
 
             //Act
-            var result = await _computerService.GetByName("X");
+            var result = await _computerService.GetByNameOrIp("X");
 
             //Assert
             Assert.NotNull(result);
@@ -144,6 +144,7 @@ namespace ComputerData.Tests
                 (
                     id: "1",
                     name: "Ada's PC",
+                    ip: "100.000.000",
                     system: "Windows",
                     systemVersion: "11",
                     managerUser: "Ada Wong",
@@ -155,6 +156,7 @@ namespace ComputerData.Tests
                 (
                     id: "2",
                     name: "Claire's Laptop",
+                    ip: "100.000.000",
                     system: "Windows",
                     systemVersion: "XP",
                     managerUser: "Claire Redfield",
@@ -166,6 +168,7 @@ namespace ComputerData.Tests
                 (
                     id: "3",
                     name: "Jill's PC",
+                    ip: "100.000.000",
                     system: "Windows",
                     systemVersion: "Vista",
                     managerUser: "Jill Valentine",
@@ -177,6 +180,7 @@ namespace ComputerData.Tests
                 (
                     id: "4",
                     name: "Leon's PC",
+                    ip: "100.000.000",
                     system: "Linux",
                     systemVersion: "Mint",
                     managerUser: "Leon Scott Kennedy",

@@ -32,7 +32,7 @@ export function Home() {
       Refresh();
       return;
     } 
-    const { data } = await api.get(`/GetByName/${computerSearch}`);
+    const { data } = await api.get(`/GetByNameOrIp/${computerSearch}`);
     setComputerList(data);
   }
 
@@ -40,7 +40,6 @@ export function Home() {
     if(computerSearch) return;
     Refresh();
   }, [computerSearch]);
-
 
   return (
     <div>
@@ -60,12 +59,11 @@ export function Home() {
             <button className="btn btn-secondary" onClick={() => history.push('/new')}>Adicionar</button>
           </div>
         </form>
-
           <table className="table table-bordered table-striped align-middle mt-3">
             <thead>
               <tr>
-                <th>Id</th>
                 <th>Name</th>
+                <th>Ip</th>
                 <th>Admin</th>
                 <th>Departmento</th>
                 <th>Sistema(OS)</th>

@@ -10,6 +10,8 @@ namespace ComputerData.Application.Data.Repositories.Interfaces
 
         Task<Computer> GetById(string id);
         
+        Task<ICollection<Computer>> GetByIp(string name);
+
         Task<ICollection<Computer>> GetByName(string name);
 
         Task<Computer> Create(Computer entity);

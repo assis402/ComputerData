@@ -5,6 +5,7 @@ using ComputerData.Application.Data.Repositories.Interfaces;
 using ComputerData.Application.Dto;
 using ComputerData.Application.Mapper;
 using ComputerData.Application.Services.Interfaces;
+using ComputerData.Application.Utils;
 
 namespace ComputerData.Application.Services
 {
@@ -32,8 +33,14 @@ namespace ComputerData.Application.Services
                 return null;
             else
             {
-                computer = _computerRepository.Update(updatedComputerDto.ToUpdatedEntity());
-                return computer.ToDto();
+                computer.Update(name: updatedComputerDto.Name,
+                                ip: updatedComputerDto.Ip,
+                                system: updatedComputerDto.System,
+                                systemVersion: updatedComputerDto.SystemVersion,
+                                managerUser: updatedComputerDto.ManagerUser,
+                                departmentInstalled: updatedComputerDto.DepartmentInstalled);
+
+                return _computerRepository.Update(computer).ToDto();
             }
         }
 
@@ -49,9 +56,17 @@ namespace ComputerData.Application.Services
             return computer.ToDto();
         }
 
-        public async Task<ICollection<ComputerDto>> GetByName(string name)
+        public async Task<ICollection<ComputerDto>> GetByNameOrIp(string search)
         {
-            var computers = await _computerRepository.GetByName(name);
+            ICollection<Computer> computers = new List<Computer>();
+            
+            search = search.Trim();
+
+            if(search.IsIP())
+                computers = await _computerRepository.GetByIp(search.RemoveWhiteSpaces());
+            else
+                computers = await _computerRepository.GetByName(search.ToLower());
+
             return computers.ToDtoList();
         }
 
