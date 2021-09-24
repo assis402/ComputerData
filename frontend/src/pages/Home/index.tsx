@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, DeleteButton, UpdateButton } from "../../components/Button";
 import { ListItem } from "../../components/ListItem";
 import { ComputerType } from "../../types/ComputerType";
 import './styles.scss';

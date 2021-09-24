@@ -10,11 +10,11 @@ export function ListItem({computer, deleteComputer}: ListItemProps){
 	const history = useHistory();
 	return (
 		<tr key={computer.Id}>
-			<td title={computer.Id}>
-				{computer.Id}
-			</td>
 			<td title={computer.Name}>
 				{computer.Name}
+			</td>
+			<td title={computer.Ip}>
+				{computer.Ip}
 			</td>
 			<td title={computer.ManagerUser}>
 				{computer.ManagerUser}

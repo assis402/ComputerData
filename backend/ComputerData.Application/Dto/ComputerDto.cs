@@ -21,8 +21,10 @@ namespace ComputerData.Application.Dto
             SystemVersion = systemVersion;
             ManagerUser = managerUser;
             DepartmentInstalled = departmentInstalled;
-            CreationDate = creationDate;
-            UpdateDate = updateDate;
+            CreationDate = creationDate.ToString("dd/MM/yyyy");
+            UpdateDate = updateDate.HasValue
+                        ? updateDate.Value.ToString("dd/MM/yyyy")
+                        : "Nunca atualizado";
         }
 
         public string Id { get; set; }
@@ -32,7 +34,7 @@ namespace ComputerData.Application.Dto
         public string SystemVersion { get; set; }
         public string ManagerUser { get; set; }
         public string DepartmentInstalled { get; set; }
-        public DateTime CreationDate { get; set; }
-        public DateTime? UpdateDate { get; set; }
+        public string CreationDate { get; set; }
+        public string UpdateDate { get; set; }
     }
 }
