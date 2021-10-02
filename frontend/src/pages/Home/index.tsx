@@ -3,43 +3,65 @@ import { useHistory } from "react-router-dom";
 import { ListItem } from "../../components/ListItem";
 import { api } from "../../services/api";
 import { ComputerType } from "../../types/ComputerType";
+import Swal from 'sweetalert';
 import './styles.scss';
+import { useApp } from "../../hooks/useApp";
 
 export function Home() {
   const history = useHistory();
   const [computerSearch, setComputerSearch] = useState('')
   const [computerList, setComputerList] = useState<ComputerType[] | null>(null)
-
-  if (!computerList) Refresh()
+  const { setIsLoading } = useApp();
 
   async function DeleteComputer(id: string){
+    setIsLoading(true);
     await api.delete(`?id=${id}`);
-    Refresh();
+    if(computerList){
+      const updatedList = computerList?.filter(item=>item.Id !== id);
+      setComputerList(updatedList);
+      Swal('Excluído','Registro excluído com sucesso', 'success');
+    }
+    setIsLoading(false);
   }
 
   async function Refresh(){
+
     try {
+      setIsLoading(true)
       const { data } = await api('');
       setComputerList(data);
 
     } catch (error) {
       console.log(error);
+    }finally {
+      setIsLoading(false)
     }
   }
 
   async function getByName() {
     if(!computerSearch){
-      Refresh();
+      //Refresh();
       return;
-    } 
-    const { data } = await api.get(`/GetByNameOrIp/${computerSearch}`);
-    setComputerList(data);
+    }
+    try {
+      setIsLoading(true);
+      const { data } = await api.get(`/GetByNameOrIp/${computerSearch}`);
+      setComputerList(data);
+
+    } catch (error) {
+      console.log(error);
+
+    } finally {
+      setIsLoading(false)
+    }
   }
+
+  
 
   useEffect(() => {
     if(computerSearch) return;
     Refresh();
-  }, [computerSearch]);
+  }, []);
 
   return (
     <div>
@@ -56,13 +78,13 @@ export function Home() {
               value={computerSearch}
             />
             <button className="btn btn-primary" onClick={getByName}>Pesquisar</button>
-            <button className="btn btn-secondary" onClick={() => history.push('/new')}>Adicionar</button>
+            <button className="btn btn-secondary" onClick={() => history.push('/new-computer')}>Adicionar</button>
           </div>
         </form>
           <table className="table table-bordered table-striped align-middle mt-3">
             <thead>
               <tr>
-                <th>Name</th>
+                <th style={{width: 300}}>Name</th>
                 <th>Ip</th>
                 <th>Admin</th>
                 <th>Departmento</th>
@@ -75,9 +97,12 @@ export function Home() {
             </thead>
             <tbody>
               {computerList? computerList.map(computer=>(
-                <ListItem computer={computer} deleteComputer={DeleteComputer} />
+                <ListItem computer={computer} deleteComputer={DeleteComputer} key={computer.Id}/>
               ))
-              : <h1 className="text-center">Carregando</h1>
+              : 
+                <tr>
+                  <td colSpan={9} className="text-center">Carregando</td>
+                </tr>
               }
             </tbody>
           </table>

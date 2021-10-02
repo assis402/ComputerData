@@ -10,8 +10,8 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Home}/>
-          <Route path="/new" component={NewComputer}/>
-          <Route path="/update" component={UpdateComputer}/>
+          <Route path="/new-computer" component={NewComputer}/>
+          <Route path="/update-computer" component={UpdateComputer}/>
         </Switch>
       </BrowserRouter>  
     </AppContextProvider>

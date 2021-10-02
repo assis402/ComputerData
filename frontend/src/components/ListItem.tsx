@@ -13,7 +13,7 @@ export function ListItem({computer, deleteComputer}: ListItemProps){
 
 	function navigateToUpdate(){
 		setSelectedComputer(computer);
-		history.push('/update');
+		history.push('/update-computer');
 	}
 
 	return (
@@ -43,8 +43,8 @@ export function ListItem({computer, deleteComputer}: ListItemProps){
 				{computer.CreationDate}
 			</td>
 			<td>
-				<button className="btn btn-outline-primary" onClick={navigateToUpdate}>Editar</button>
-				<button className="btn btn-outline-danger" onClick={() => deleteComputer(computer.Id)}>Delete</button>
+				<button className="btn btn-outline-primary me-2" onClick={navigateToUpdate}>Editar</button>
+				<button className="btn btn-outline-danger" onClick={() => deleteComputer(computer.Id)}>Deletar</button>
 			</td>
 		</tr>
 	)
