@@ -25,7 +25,6 @@ export function Home() {
   }
 
   async function Refresh(){
-
     try {
       setIsLoading(true)
       const { data } = await api('');
@@ -46,7 +45,9 @@ export function Home() {
     try {
       setIsLoading(true);
       const { data } = await api.get(`/GetByNameOrIp/${computerSearch}`);
-      setComputerList(data);
+      const results = data? data : []
+      console.log(results)
+      setComputerList(results);
 
     } catch (error) {
       console.log(error);
@@ -87,7 +88,7 @@ export function Home() {
                 <th style={{width: 300}}>Name</th>
                 <th>Ip</th>
                 <th>Admin</th>
-                <th>Departmento</th>
+                <th>Departamentos</th>
                 <th>Sistema(OS)</th>
                 <th>Versão atual</th>
                 <th>Atualizado</th>
@@ -96,14 +97,14 @@ export function Home() {
               </tr>
             </thead>
             <tbody>
-              {computerList? computerList.map(computer=>(
+              {computerList && (computerList.length > 0? computerList.map(computer=>(
                 <ListItem computer={computer} deleteComputer={DeleteComputer} key={computer.Id}/>
               ))
               : 
                 <tr>
-                  <td colSpan={9} className="text-center">Carregando</td>
+                  <td colSpan={9} className="text-center">Não há resultados, tente outra palavra chave</td>
                 </tr>
-              }
+              )}
             </tbody>
           </table>
     </main>
