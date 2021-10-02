@@ -40,7 +40,7 @@ export function Home() {
 
   async function getByName() {
     if(!computerSearch){
-      //Refresh();
+      Refresh();
       return;
     }
     try {

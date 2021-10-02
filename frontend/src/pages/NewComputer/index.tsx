@@ -11,7 +11,7 @@ export function NewComputer() {
 	const history = useHistory();
 	const [name, setName] = useState('');
 	const [ip, setIp] = useState('');
-	const [system, setSystem] = useState('');
+	const [system, setSystem] = useState('Windows');
 	const [systemVersion, setSystemVersion] = useState('');
 	const [managerUser, setManagerUser] = useState('');
 	const [departmentInstalled, setDepartmentInstalled] = useState('');
