@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System;
 using ComputerData.Application.Data.Entities;
 using ComputerData.Application.Data.Repositories.Interfaces;
 using ComputerData.Application.Dto;
@@ -9,6 +6,9 @@ using ComputerData.Application.Services;
 using ComputerData.Application.Services.Interfaces;
 using Moq;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace ComputerData.Tests
@@ -37,7 +37,7 @@ namespace ComputerData.Tests
 
             //Act
             var newComputer = await _computerService.Create(request);
-            
+
             //Assert
             Assert.NotNull(newComputer);
         }
@@ -53,7 +53,7 @@ namespace ComputerData.Tests
 
             //Act
             var newComputer = await _computerService.Create(request);
-            
+
             //Assert
             Assert.NotNull(newComputer);
         }

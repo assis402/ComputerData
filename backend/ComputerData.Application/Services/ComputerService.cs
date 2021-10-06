@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using ComputerData.Application.Data.Entities;
 using ComputerData.Application.Data.Repositories.Interfaces;
 using ComputerData.Application.Dto;
 using ComputerData.Application.Mapper;
 using ComputerData.Application.Services.Interfaces;
 using ComputerData.Application.Utils;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ComputerData.Application.Services
 {
@@ -28,7 +28,7 @@ namespace ComputerData.Application.Services
         public async Task<ComputerDto> Update(ComputerDto updatedComputerDto)
         {
             var computer = await _computerRepository.GetById(updatedComputerDto.Id);
-            
+
             if (computer is null)
                 return null;
             else
@@ -53,16 +53,20 @@ namespace ComputerData.Application.Services
         public async Task<ComputerDto> GetById(string id)
         {
             var computer = await _computerRepository.GetById(id);
+
+            if (computer is null)
+                return null;
+
             return computer.ToDto();
         }
 
         public async Task<ICollection<ComputerDto>> GetByNameOrIp(string search)
         {
             ICollection<Computer> computers = new List<Computer>();
-            
+
             search = search.Trim();
 
-            if(search.IsIP())
+            if (search.IsIP())
                 computers = await _computerRepository.GetByIp(search.RemoveWhiteSpaces());
             else
                 computers = await _computerRepository.GetByName(search.ToLower());
@@ -73,7 +77,20 @@ namespace ComputerData.Application.Services
         public async Task DeleteById(string id)
         {
             var computer = await _computerRepository.GetById(id);
+
             _computerRepository.Delete(computer);
+        }
+
+        public async Task<string> GetBackup()
+        {
+            var computerList = await _computerRepository.GetAll();
+
+            return computerList.ToBackupDtoList().ConvertToJson();
+        }
+
+        public void InsertBackup(List<ComputerDto> backup)
+        {
+            backup.ForEach(async computer => await _computerRepository.Create(computer.ToBackupEntity()));
         }
     }
 }

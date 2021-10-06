@@ -1,6 +1,6 @@
+using ComputerData.Application.Data.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComputerData.Application.Data.Entities;
 
 namespace ComputerData.Application.Data.Repositories.Interfaces
 {
@@ -9,7 +9,7 @@ namespace ComputerData.Application.Data.Repositories.Interfaces
         Task<ICollection<Computer>> GetAll();
 
         Task<Computer> GetById(string id);
-        
+
         Task<ICollection<Computer>> GetByIp(string name);
 
         Task<ICollection<Computer>> GetByName(string name);
