@@ -1,16 +1,16 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ComputerData.Application.Data.Entities;
 using ComputerData.Application.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ComputerData.Application.Data.Repositories
 {
     public class ComputerRepository : IComputerRepository
     {
         private ComputerDataContext _db = null;
-        DbSet<Computer> _dbSet; 
+        private DbSet<Computer> _dbSet;
 
         public ComputerRepository(ComputerDataContext db)
         {

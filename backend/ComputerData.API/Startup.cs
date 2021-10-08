@@ -36,9 +36,9 @@ namespace ComputerData.API
 
             services.AddMemoryCache();
 
-            services.AddControllers().AddNewtonsoftJson(opt => 
+            services.AddControllers().AddNewtonsoftJson(opt =>
                 opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
-                
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddCors();
         }

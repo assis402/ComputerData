@@ -1,11 +1,11 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ComputerData.Application.Dto;
+using System.Globalization;
 
 namespace ComputerData.Application.Data.Entities
 {
-    [Table("computer")]  
+    [Table("computer")]
     public class Computer
     {
         [Key]
@@ -54,12 +54,32 @@ namespace ComputerData.Application.Data.Entities
             UpdateDate = null;
         }
 
+        public Computer(string name,
+                        string ip,
+                        string system,
+                        string systemVersion,
+                        string managerUser,
+                        string departmentInstalled,
+                        string creationDate,
+                        string updateDate)
+        {
+            Id = Guid.NewGuid().ToString();
+            Name = name;
+            Ip = ip;
+            System = system;
+            SystemVersion = systemVersion;
+            ManagerUser = managerUser;
+            DepartmentInstalled = departmentInstalled;
+            CreationDate = Convert.ToDateTime(creationDate, CultureInfo.InvariantCulture);
+            UpdateDate = Convert.ToDateTime(updateDate, CultureInfo.InvariantCulture);
+        }
+
         public void Update(string name,
                                    string ip,
-                                   string system, 
+                                   string system,
                                    string systemVersion,
                                    string managerUser,
-                                   string departmentInstalled)       
+                                   string departmentInstalled)
         {
             Name = name;
             Ip = ip;

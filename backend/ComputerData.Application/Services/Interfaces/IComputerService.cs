@@ -1,6 +1,6 @@
+using ComputerData.Application.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ComputerData.Application.Dto;
 
 namespace ComputerData.Application.Services.Interfaces
 {
@@ -17,5 +17,9 @@ namespace ComputerData.Application.Services.Interfaces
         Task<ICollection<ComputerDto>> GetByNameOrIp(string name);
 
         Task DeleteById(string id);
+
+        Task<string> GetBackup();
+
+        void InsertBackup(List<ComputerDto> backup);
     }
 }

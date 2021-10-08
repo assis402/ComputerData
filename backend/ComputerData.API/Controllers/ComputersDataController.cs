@@ -1,8 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using ComputerData.Application.Dto;
+﻿using ComputerData.Application.Dto;
 using ComputerData.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ComputerData.API.Controllers
 {
@@ -23,13 +24,13 @@ namespace ComputerData.API.Controllers
             try
             {
                 var computerList = await _computerService.GetAll();
-                
+
                 if (computerList.Count != 0)
                     return Ok(computerList);
                 else
                     return StatusCode(204);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -47,7 +48,7 @@ namespace ComputerData.API.Controllers
                 else
                     return StatusCode(204);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -65,7 +66,7 @@ namespace ComputerData.API.Controllers
                 else
                     return StatusCode(204);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -79,7 +80,7 @@ namespace ComputerData.API.Controllers
                 var newComputer = await _computerService.Create(computerDto);
                 return StatusCode(201, newComputer);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -92,12 +93,12 @@ namespace ComputerData.API.Controllers
             {
                 var updatedComputer = await _computerService.Update(computerDto);
 
-                if(updatedComputer is null)
+                if (updatedComputer is null)
                     return BadRequest("Computer not found.");
 
                 return Ok(updatedComputer);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -111,7 +112,40 @@ namespace ComputerData.API.Controllers
                 await _computerService.DeleteById(id);
                 return Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetBackup")]
+        public async Task<ActionResult> GetBackup()
+        {
+            try
+            {
+                var backup = await _computerService.GetBackup();
+
+                if (backup is null)
+                    return StatusCode(204);
+
+                return Ok(backup);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("InsertBackup")]
+        public ActionResult InsertBackup(List<ComputerDto> backup)
+        {
+            try
+            {
+                _computerService.InsertBackup(backup);
+
+                return Ok();
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
