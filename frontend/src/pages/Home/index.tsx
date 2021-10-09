@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FormHTMLAttributes, HTMLInputTypeAttribute, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ListItem } from "../../components/ListItem";
 import { api } from "../../services/api";
@@ -6,6 +6,8 @@ import { ComputerType } from "../../types/ComputerType";
 import Swal from 'sweetalert';
 import './styles.scss';
 import { useApp } from "../../hooks/useApp";
+import { InputFiles } from "typescript";
+import axios from "axios";
 
 export function Home() {
   const history = useHistory();
@@ -64,6 +66,56 @@ export function Home() {
     Refresh();
   }, []);
 
+  async function fetchBackup() {
+    setIsLoading(true);
+
+    try {
+      
+      const response = await fetch('https://computerdata-api.herokuapp.com/ComputerData/GetBackup');
+      const data = await response.json();
+      
+      let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+      let a = document.createElement('a');
+      
+      a.setAttribute("href",dataStr);
+      a.setAttribute("download", 'backup' + ".json");
+      document.body.appendChild(a); // required for firefox
+      a.click();
+      a.remove();
+    } catch (error) {
+      console.log('line:86'+error)
+
+    } finally {
+      setIsLoading(false);
+
+    }
+  }
+
+  async function insertBackup() {
+    const backup = document.createElement('input');
+    backup.setAttribute('type','file');
+    backup.click();
+    
+    backup.addEventListener('change',async(event: any)=>{
+      setIsLoading(true);
+      let reader = new FileReader();
+      reader.addEventListener('loadend',async()=>{
+        let data = reader.result?.toString();
+        if(!data) return;
+
+        try {
+          const parsedData = JSON.parse(data);
+          api.post('/InsertBackup',parsedData);
+        } catch (error) {
+          console.log(error)
+        }
+      })
+      reader.readAsText(event.target.files[0])
+      setIsLoading(false);
+      Refresh();
+    })
+  }
+
   return (
     <div>
       <main className="p-5">
@@ -80,6 +132,8 @@ export function Home() {
             />
             <button className="btn btn-primary" onClick={getByName}>Pesquisar</button>
             <button className="btn btn-secondary" onClick={() => history.push('/new-computer')}>Adicionar</button>
+            <button className="btn btn-secondary" onClick={fetchBackup}>Download All</button>
+            <button className="btn btn-secondary" onClick={insertBackup}>Insert Backup</button>
           </div>
         </form>
           <table className="table table-bordered table-striped align-middle mt-3">
